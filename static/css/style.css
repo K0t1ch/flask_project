@@ -1,0 +1,57 @@
+.back {
+  background-image: url(static/img/back1.jpg);
+  background-size: 100% 200%
+}
+
+.duv {
+  border: 2px solid lightslategray;
+width: 1400px; height: 800px; margin-top: -1080px;
+margin-left: 18%; background-color: white;
+opacity: .5; color: dimgrey; font-weight: bold; font-family: Arial, Helvetica, sans-serif; font-size: 24px
+}
+
+.head1 {
+  text-align: center; color: darkgrey; margin-left: center; font-family: Arial, Helvetica, sans-serif; font-size: 48px
+}
+
+.left {
+  border: 2px solid lightslategray;
+width: 100px; height: 1200px; margin-top: 0px; margin-left: -10px; background-color: white;
+opacity: .7; color: dimgrey; font-weight: bold; font-family: Arial, Helvetica, sans-serif;
+}
+
+.logo {
+  border: 2px solid lightslategray;
+width: 200px; height: 200px; margin-top: -120px; margin-left: -10px; background-color: white;
+opacity: .7; color: dimgrey; font-weight: bold; font-family: Arial, Helvetica, sans-serif;
+}
+
+.logoimg {
+  width: 100%;margin-top: -130px; margin-left: 5px;
+}
+
+.reservation {
+  margin-top: 220px; margin-left: 195px;
+  color: white; font-weight: bold;
+  font-size: 36px
+}
+
+.calc {
+  width: 90px; margin-top: 30px;
+}
+
+.link {
+  color: darkcyan; font-size: 14px; text-decoration: none; font-weight: bold; font-size: 24px
+}
+
+.hr {
+  height: 2px; width: 99%; border: 2px solid grey; background: gray;
+}
+
+.text {
+  color: coral;
+}
+
+.hed2 {
+  font-size: 14px
+}
