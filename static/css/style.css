@@ -10,6 +10,13 @@ margin-left: 18%; background-color: white;
 opacity: .5; color: dimgrey; font-weight: bold; font-family: Arial, Helvetica, sans-serif; font-size: 24px
 }
 
+.dv {
+  border: 2px solid lightslategray;
+width: 1400px; height: 800px;
+margin-left: -13%; background-color: white;
+opacity: .5; color: dimgrey; font-weight: bold; font-family: Arial, Helvetica, sans-serif; font-size: 24px
+}
+
 .head1 {
   text-align: center; color: darkgrey; margin-left: center; font-family: Arial, Helvetica, sans-serif; font-size: 48px
 }
@@ -55,3 +62,6 @@ opacity: .7; color: dimgrey; font-weight: bold; font-family: Arial, Helvetica, s
 .hed2 {
   font-size: 14px
 }
+
+.test {
+color: yellow}
