@@ -4,23 +4,45 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous">
 
   <title>OGE preparation</title>
   <link rel="stylesheet" href="static/css/style.css">
 </head>
 
 <body class="back" style="background-image: url(static/img/back1.jpg)">
+<header>
+    <nav class="navbar navbar-$gray-800 bg-$gray-800">
+        <a class="navbar-brand" href="#">                </a>
+        {% if current_user.is_authenticated %}
+    <a class="navbar-brand" href="/logout">{{ current_user.name }}</a>
+{% else %}
+    <p>
+        <a class="btn btn-primary " href="/register">Зарегистрироваться</a>
+        <a class="btn btn-success" href="/login">Войти</a>
+    </p>
+{% endif %}
+    </nav>
+</header>
+<!-- Begin page content -->
+<main role="main" class="container">
+    {% block content %}{% endblock %}
+</main>
+
   <h1 class="head1">Подготовка к ОГЭ</h1>
   <div class="logo">
     <img src="static/img/Logo2.png" alt="b" class="logoimg"></div>
   <div class="left">
-    <img src="static/img/Calc.png" alt="" class="calc">
     <img src="static/img/Test.png" alt="" class="calc">
     <a href="Support.html"><img src="static/img/Support.png" alt="" class="calc"></a>
     <a href="index.html"><img src="static/img/Home.png" alt="" class="calc"></a>
   </div>
   <div class="duv">
-      <script>
+
+<script>
           function errorWindow() {
               let age = prompt('     Что Вас смутило в работе сайта?', "");
                   var hitCancel = !(age != "" && name !== null);
@@ -34,18 +56,23 @@
   }
 }
       </script>
+
       <I><B>Поддержка</B></I>
+      <div class="hr"></div>
       <p class="text">
-        Если Вы неудовлетворены в работе сайта или нашли ошибки, свяжитесь с нами через рассылку
+          Эта страница всё ещё на стадии активной доработки.
+            Вы можете столкнуться с ошибками. Для помощи сайту, а следовательно и всем пользователям, опишите неполадку по подсказке внизу
+        Если Вы неудовлетворены в работе сайта или нашли ошибки, свяжитесь с нами через рассылку внизу
       </p>
-      <p style="color: red"><a onclick="errorWindow()">Отправить отчёт об ошибке</a></p>
+      <p style="color: red; font-size: 40px"><a onclick="errorWindow()">Отправить отчёт об ошибке</a></p>
         <div class="hr"></div>
       <p class="text">
         Для связи в целях рекламных или иных предложений: dselcov18@gmail.com
-        <br><p style="font-size: 12px; color: lightcoral">(электронная почта создателя (Сельцов Даниил))</p>
+        <br><p style="font-size: 18px; color: lightcoral">(электронная почта создателя (Сельцов Даниил))</p>
       </p>
+      <br>
   </div>
   <p class="reservation">Все права защищены &copy</p>
- 
+
 </body>
 </html>

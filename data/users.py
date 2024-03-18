@@ -8,6 +8,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 news = orm.relationship("News", back_populates='user')
 
+
 class User(SqlAlchemyBase, UserMixin):
     __tablename__ = 'users'
 
