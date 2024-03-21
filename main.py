@@ -29,6 +29,11 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/testiki.html')
+def tests():
+    return render_template('testiki.html')
+
+
 @app.route('/Support.html')
 def sup():
     return render_template('Support.html')
