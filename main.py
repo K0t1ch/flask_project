@@ -4,6 +4,7 @@ from flask import Flask, render_template, redirect
 
 from forms.user import RegisterForm, LoginForm
 from data.users import User
+from data.news import News
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -15,6 +16,14 @@ login_manager.init_app(app)
 def main():
     db_session.global_init("db/blogs.db")
     app.run()
+
+
+@app.route("/fordocx.html")
+def fuck():
+    db_sess = db_session.create_session()
+    news = db_sess.query(News).filter(News.is_private == True)
+    return render_template("fordocx.html", news=news)
+
 
 
 @login_manager.user_loader
