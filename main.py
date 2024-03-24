@@ -1,6 +1,6 @@
 from data import db_session
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
-from flask import Flask, render_template, redirect, request, abort
+from flask import Flask, render_template, redirect, request, abort, flash
 
 from forms.news import NewsForm
 from forms.user import RegisterForm, LoginForm
@@ -19,11 +19,32 @@ def main():
     app.run()
 
 
-@app.route("/fordocx.html")
-def fuck():
+@app.route("/ict.html")
+def ict():
     db_sess = db_session.create_session()
-    news = db_sess.query(News).filter(News.is_private != True)
-    return render_template("fordocx.html", news=news)
+    news = db_sess.query(News).filter(News.title == 'Информатика')
+    return render_template("ict.html", news=news)
+
+
+@app.route("/math.html")
+def math():
+    db_sess = db_session.create_session()
+    news = db_sess.query(News).filter(News.title == 'Математика')
+    return render_template("math.html", news=news)
+
+
+@app.route("/phys.html")
+def phys():
+    db_sess = db_session.create_session()
+    news = db_sess.query(News).filter(News.title == 'Физика')
+    return render_template("phys.html", news=news)
+
+
+@app.route("/rus.html")
+def rus():
+    db_sess = db_session.create_session()
+    news = db_sess.query(News).filter(News.title == 'Русский язык')
+    return render_template("rus.html", news=news)
 
 
 @login_manager.user_loader
@@ -98,6 +119,10 @@ def logout():
 @app.route('/news',  methods=['GET', 'POST'])
 @login_required
 def add_news():
+    dictionary = {'Информатика': 'ict.html',
+                  'Математика': 'math.html',
+                  'Русский язык': 'rus.html',
+                  'Физика': 'phys.html'}
     form = NewsForm()
     if form.validate_on_submit():
         db_sess = db_session.create_session()
@@ -108,7 +133,8 @@ def add_news():
         current_user.news.append(news)
         db_sess.merge(current_user)
         db_sess.commit()
-        return redirect('/')
+        return redirect(f'{dictionary[news.title]}')
+
     return render_template('news.html', title='Добавление новости',
                            form=form)
 

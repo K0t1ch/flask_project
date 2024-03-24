@@ -71,6 +71,8 @@ width: 1400px; height: 450px;
 margin-left: -13%; background-color: white;
 opacity: .5; color: dimgrey; font-weight: bold; font-family: Arial, Helvetica, sans-serif; font-size: 24px}
 
-.btn {background-color: purple; border-radius: 10px;}
+.btn {background-color: purple; border-radius: 10px; transition: 0.7s;}
 
-.btn:hover {background-color: blue; color: grey; font-size: 17px;transition: 0.7s; border-radius: 16px;}
+.btn:hover {background-color: blue; color: grey; font-size: 13px;transition: 0.7s; border-radius: 16px;}
+
+.btn-add {font-size: 24px}

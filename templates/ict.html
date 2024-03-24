@@ -1,13 +1,13 @@
 {% extends "base.html" %}
-
 {% block content %}
-<h1>Записи в блоге</h1>
+<h1>Документация по информатике</h1>
 {% if current_user.is_authenticated %}
-    <a href="news" class="btn btn-secondary">Добавить новость</a>
+    <a href="news" class="btn btn-secondary btn-add">Сделать запись</a>
 {% endif %}
 {% for item in news%}
 
-<div class="col-md6 border rounded">
+<div class="col-md6 border rounded" style="background-color: white; opacity: .5;">
+
 
     <h2>{{item.title}}</h2>
     <div>
@@ -18,7 +18,7 @@
     </div>
     {% if current_user.is_authenticated and current_user == item.user %}
     <div>
-        <a href="/news/{{ item.id }}" class="btn btn-warning">
+        <a href="/news/{{ item.id }}" class="btn btn-danger">
             Изменить
         </a>
         <a href="/news_delete/{{ item.id }}" class="btn btn-danger">
@@ -26,6 +26,7 @@
         </a>
     </div>
     {% endif %}
+
 </div>
 
 {% endfor %}
