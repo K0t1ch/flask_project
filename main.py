@@ -23,28 +23,28 @@ def main():
 def ict():
     db_sess = db_session.create_session()
     news = db_sess.query(News).filter(News.title == 'Информатика')
-    return render_template("ict.html", news=news)
+    return render_template("ict.html", news=news, title='ICT Documentation')
 
 
 @app.route("/math.html")
 def math():
     db_sess = db_session.create_session()
     news = db_sess.query(News).filter(News.title == 'Математика')
-    return render_template("math.html", news=news)
+    return render_template("math.html", news=news, title='MATHS Documentation')
 
 
 @app.route("/phys.html")
 def phys():
     db_sess = db_session.create_session()
     news = db_sess.query(News).filter(News.title == 'Физика')
-    return render_template("phys.html", news=news)
+    return render_template("phys.html", news=news, title='PHYSICS Documentation')
 
 
 @app.route("/rus.html")
 def rus():
     db_sess = db_session.create_session()
     news = db_sess.query(News).filter(News.title == 'Русский язык')
-    return render_template("rus.html", news=news)
+    return render_template("rus.html", news=news, title='RUSSIAN LANGUAGE Documentation')
 
 
 @login_manager.user_loader
@@ -142,6 +142,11 @@ def add_news():
 @app.route('/news/<int:id>', methods=['GET', 'POST'])
 @login_required
 def edit_news(id):
+    dictionary = {'Информатика': 'ict.html',
+                  'Математика': 'math.html',
+                  'Русский язык': 'rus.html',
+                  'Физика': 'phys.html'}
+
     form = NewsForm()
     if request.method == "GET":
         db_sess = db_session.create_session()
@@ -164,12 +169,33 @@ def edit_news(id):
             news.content = form.content.data
             news.is_private = form.is_private.data
             db_sess.commit()
-            return redirect('/')
+
+            return redirect(f'/{dictionary[news.title]}')
         else:
             abort(404)
     return render_template('news.html',
                            title='Редактирование новости',
                            form=form)
+
+
+@app.route('/news_delete/<int:id>', methods=['GET', 'POST'])
+@login_required
+def news_delete(id):
+    dictionary = {'Информатика': 'ict.html',
+                  'Математика': 'math.html',
+                  'Русский язык': 'rus.html',
+                  'Физика': 'phys.html'}
+
+    db_sess = db_session.create_session()
+    news = db_sess.query(News).filter(News.id == id,
+                                      News.user == current_user
+                                      ).first()
+    if news:
+        db_sess.delete(news)
+        db_sess.commit()
+    else:
+        abort(404)
+    return redirect(f'/{dictionary[news.title]}')
 
 
 if __name__ == '__main__':

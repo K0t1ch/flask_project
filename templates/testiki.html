@@ -47,15 +47,18 @@
         Пройдя регистрацию, Вы сможете поделиться своим личным опытом в сдачи экзамена или к его подготовке.
       <P style="color: red">НЕТ НИЗКИМ БАЛЛАМ!</P>
     </p>
-        <div class="hr"></div>
-    Ссылки:
-    <br>
-      <li>
-      <a href="/login" class="link">Войти</a>
-          </li>
-            <li>
+
+    {% if current_user.is_authenticated %}
+      <div class="hr"></div>
+      Вы вошли в аккаунт! <br> Делитесь с пользователями своими советами по поводу сдачи экзаменов!
+    {% else %}
+    <div class="hr"></div>
+       <P style="color: red">Для работы с документациями нужно</P> <a href="/login" class="link">Войти</a> или
       <a href="/register" class="link">Зарегистрироваться</a>
-                          </li>
+
+      {% endif %}
+
+
               <div class="hr"></div>
       Написать документацию по:
       <li>
