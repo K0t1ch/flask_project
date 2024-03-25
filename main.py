@@ -217,10 +217,13 @@ def news_delete(id):
         db_sess.commit()
     else:
         abort(404)
-    if news.title in dictionary.keys():
-        return redirect(f'/{dictionary[news.title]}')
-    else:
-        return redirect(f'/allnews.html')
+    try:
+        if news.title in dictionary.keys():
+            return redirect(f'/{dictionary[news.title]}')
+        else:
+            return redirect(f'/allnews.html')
+    except Exception:
+        return redirect(f'/questions.html')
 
 
 if __name__ == '__main__':

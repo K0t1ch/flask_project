@@ -18,7 +18,12 @@ opacity: .5; color: dimgrey; font-weight: bold; font-family: Arial, Helvetica, s
 }
 
 .head1 {
-  text-align: center; color: darkgrey; margin-left: center; font-family: Arial, Helvetica, sans-serif; font-size: 48px
+  text-align: center; color: darkgrey; margin-left: center; font-family: Arial, Helvetica, sans-serif; font-size: 48px;
+  transition: 0.9s;
+}
+
+.head1:hover {
+transition: 0.9s; font-size: 50px; text-shadow: 1px 1px 2px black, 0 0 1em purple;
 }
 
 .left {
@@ -44,12 +49,18 @@ opacity: .7; color: dimgrey; font-weight: bold; font-family: Arial, Helvetica, s
 }
 
 .calc {
-  width: 90px; margin-top: 30px;
+  width: 90px; margin-top: 30px; transition: 0.4s
+}
+
+.calc:hover {
+width:93px; transition: 0.4s;
 }
 
 .link {
-  color: darkcyan; font-size: 14px; text-decoration: none; font-weight: bold; font-size: 24px
+  color: darkcyan; font-size: 14px; text-decoration: none; font-weight: bold; font-size: 24px; transition: 0.5s;
 }
+
+.link:hover {transition: 0.3s; font-size: 25px; color: cyan;}
 
 .hr {
   height: 2px; width: 99%; border: 2px solid grey; background: gray;
