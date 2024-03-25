@@ -22,28 +22,42 @@ def main():
 @app.route("/ict.html")
 def ict():
     db_sess = db_session.create_session()
-    news = db_sess.query(News).filter(News.title == 'Информатика')
+    news = db_sess.query(News).filter(News.title == 'Информатика').filter(News.is_question != True)
     return render_template("ict.html", news=news, title='ICT Documentation')
+
+
+@app.route("/allnews.html")
+def all():
+    db_sess = db_session.create_session()
+    news = db_sess.query(News).filter(News.is_question != True)
+    return render_template("allnews.html", news=news, title='ALL Documentation')
+
+
+@app.route("/questions.html")
+def questions():
+    db_sess = db_session.create_session()
+    news = db_sess.query(News).filter(News.is_question == True)
+    return render_template("questions.html", news=news, title='QUESTIONS')
 
 
 @app.route("/math.html")
 def math():
     db_sess = db_session.create_session()
-    news = db_sess.query(News).filter(News.title == 'Математика')
+    news = db_sess.query(News).filter(News.title == 'Математика').filter(News.is_question != True)
     return render_template("math.html", news=news, title='MATHS Documentation')
 
 
 @app.route("/phys.html")
 def phys():
     db_sess = db_session.create_session()
-    news = db_sess.query(News).filter(News.title == 'Физика')
+    news = db_sess.query(News).filter(News.title == 'Физика').filter(News.is_question != True)
     return render_template("phys.html", news=news, title='PHYSICS Documentation')
 
 
 @app.route("/rus.html")
 def rus():
     db_sess = db_session.create_session()
-    news = db_sess.query(News).filter(News.title == 'Русский язык')
+    news = db_sess.query(News).filter(News.title == 'Русский язык').filter(News.is_question != True)
     return render_template("rus.html", news=news, title='RUSSIAN LANGUAGE Documentation')
 
 
@@ -129,11 +143,15 @@ def add_news():
         news = News()
         news.title = form.title.data
         news.content = form.content.data
-        news.is_private = form.is_private.data
+        news.is_question = form.is_question.data
         current_user.news.append(news)
         db_sess.merge(current_user)
         db_sess.commit()
-        return redirect(f'{dictionary[news.title]}')
+
+        if news.title in dictionary.keys():
+            return redirect(f'/{dictionary[news.title]}')
+        else:
+            return redirect(f'/allnews.html')
 
     return render_template('news.html', title='Добавление новости',
                            form=form)
@@ -156,7 +174,7 @@ def edit_news(id):
         if news:
             form.title.data = news.title
             form.content.data = news.content
-            form.is_private.data = news.is_private
+            form.is_question.data = news.is_question
         else:
             abort(404)
     if form.validate_on_submit():
@@ -167,10 +185,14 @@ def edit_news(id):
         if news:
             news.title = form.title.data
             news.content = form.content.data
-            news.is_private = form.is_private.data
+            news.is_question = form.is_question.data
             db_sess.commit()
 
-            return redirect(f'/{dictionary[news.title]}')
+            if news.title in dictionary.keys():
+                return redirect(f'/{dictionary[news.title]}')
+            else:
+                return redirect(f'/allnews.html')
+
         else:
             abort(404)
     return render_template('news.html',
@@ -195,7 +217,10 @@ def news_delete(id):
         db_sess.commit()
     else:
         abort(404)
-    return redirect(f'/{dictionary[news.title]}')
+    if news.title in dictionary.keys():
+        return redirect(f'/{dictionary[news.title]}')
+    else:
+        return redirect(f'/allnews.html')
 
 
 if __name__ == '__main__':

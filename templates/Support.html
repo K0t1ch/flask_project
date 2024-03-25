@@ -16,6 +16,10 @@
 <body class="back" style="background-image: url(static/img/back1.jpg)">
 <header>
     <nav class="navbar navbar-$gray-800 bg-$gray-800">
+        <pre>
+                                      <a class="btn btn-primary " href="rus.html">Русский язык</a> <a class="btn btn-primary" href="math.html">Математика</a> <a class="btn btn-primary" href="ict.html">Информатика</a> <a class="btn btn-primary" href="phys.html">Физика</a> <a class="btn btn-primary" href="allnews.html">Всё</a> <a class="btn btn-primary" href="questions.html">Вопросы</a>
+
+        </pre>
         <a class="navbar-brand" href="#">                </a>
         {% if current_user.is_authenticated %}
     <a class="navbar-brand" href="/logout">{{ current_user.name }}</a>
@@ -37,7 +41,7 @@
     <img src="static/img/Logo2.png" alt="b" class="logoimg"></div>
   <div class="left">
     <a href="testiki.html"><img src="static/img/Test.png" alt="" class="calc"></a>
-    <a href="Support.html"><img src="static/img/Support.png" alt="" class="calc"></a>
+    <a><img src="static/img/Support.png" alt="" class="calc"></a>
     <a href="index.html"><img src="static/img/Home.png" alt="" class="calc" id="Photo"></a>
   </div>
   <div class="duv">

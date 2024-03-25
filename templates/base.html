@@ -10,10 +10,16 @@
     <title>{{title}}</title>
     <link rel="stylesheet" href="static/css/style.css">
 </head>
-<body style="background-image: url(static/img/backreg.jpg)">
+<body style="background-image: url(static/img/backreg.jpg); background-size: cover">
 <header>
     <nav class="navbar navbar-light bg-light">
         <a class="navbar-brand" href="index.html">Наше приложение</a>
+        <a class="navbar-brand" href="rus.html">Русский язык</a>
+        <a class="navbar-brand" href="math.html">Математика</a>
+        <a class="navbar-brand" href="ict.html">Информатика</a>
+        <a class="navbar-brand" href="phys.html">Физика</a>
+        <a class="navbar-brand" href="allnews.html">Всё</a>
+        <a class="navbar-brand" href="questions.html">Вопросы</a>
         {% if current_user.is_authenticated %}
     <a class="navbar-brand" href="/logout">{{ current_user.name }}</a>
 {% else %}
