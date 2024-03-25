@@ -76,3 +76,7 @@ opacity: .5; color: dimgrey; font-weight: bold; font-family: Arial, Helvetica, s
 .btn:hover {background-color: blue; color: grey; font-size: 13px;transition: 0.7s; border-radius: 16px;}
 
 .btn-add {font-size: 24px}
+
+.btn-primary {background-color: grey}
+
+.btn-primary:hover {background-color: purple}
