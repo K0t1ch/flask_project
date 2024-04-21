@@ -1,6 +1,7 @@
 from data import db_session
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
-from flask import Flask, render_template, redirect, request, abort, flash
+from flask import Flask, render_template, redirect, request, abort, url_for
+import os
 
 from forms.news import NewsForm
 from forms.user import RegisterForm, LoginForm
@@ -17,6 +18,24 @@ login_manager.init_app(app)
 def main():
     db_session.global_init("db/blogs.db")
     app.run()
+
+
+@app.route("/photos.html")
+def photo():
+
+    folder_path = r'C:\Users\dselc\PycharmProjects\flask_project2\static\img\image'
+    file_names = []
+    for file_name in os.listdir(folder_path):
+        if os.path.isfile(os.path.join(folder_path, file_name)):
+            file_names.append(file_name)
+
+    print(file_names)
+
+    return render_template('photos.html', file_names=file_names)
+
+
+
+
 
 
 @app.route("/ict.html")
@@ -224,6 +243,50 @@ def news_delete(id):
             return redirect(f'/allnews.html')
     except Exception:
         return redirect(f'/questions.html')
+
+
+@app.route('/upload', methods=['POST', 'GET'])
+def sample_file_upload():
+    if request.method == 'POST':
+        f = request.files['file']
+
+        f.save(fr"static\img\image\{f.filename}")
+
+        return redirect('photos.html')
+
+    else:
+        return f'''<!doctype html>
+        <html lang="en">
+
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+                integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+            <link rel="stylesheet" type="text/css" href="{url_for('static', filename='css/style.css')}" />
+            <title>Пример загрузки файла</title>
+        </head>
+
+        <body>
+            <h1 style="text-align: center;">Загрузка фотографии</h1>
+            <h2 style="text-align: center;">для участия в миссии</h2>
+            <form method="post" enctype="multipart/form-data">
+                <div class="form-group"
+                    style="background-color: yellow; border: 3px solid yellowgreen;width: fit-content; height: fit-content; margin-left: auto; margin-right: auto;">
+                    Приложите фотографию<br>
+
+                    <input type="file" class="form-control-file" id="photo" name="file"><br>
+                    <button type="submit" class="btn btn-primary">Отправить</button>
+                </div>
+
+            </form>
+        </body>
+
+        </html>'''
+
+
+
+
 
 
 if __name__ == '__main__':
