@@ -7,15 +7,18 @@
 {% endif %}
 {% for item in news%}
 
-<div class="col-md6 border rounded" style="background-color: white; opacity: .5;">
+<div class="col-md6 border rounded" style="background-color: gray; opacity: .5;">
 
-    <h2>{{item.title}}</h2>
-    <div>
+    <h2 style="text-align: center;">{{item.title}}</h2>
+
+    <div style="font-size: 20px; text-align: center; font-weight: bold">
+        ----- > Автор - {{item.user.name}} <-----
+    </div>
+
+    <div style="text-align: center; font-size: 26px; font-weight: bold; color: white;">
         {{item.content}}
     </div>
-    <div>
-        Автор - {{item.user.name}}, Дата написания - {{item.created_date}}
-    </div>
+
     {% if current_user.is_authenticated and current_user == item.user %}
     <div>
         <a href="/news/{{ item.id }}" class="btn btn-danger">
