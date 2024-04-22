@@ -7,17 +7,44 @@
 {% endif %}
 {% for item in news%}
 
-<div class="col-md6 border rounded" style="background-color: gray; opacity: .5;">
+<div class="col-md6 border rounded" style="background-color: gray; opacity: .8;">
 
     <h2 style="text-align: center;">{{item.title}}</h2>
-
     <div style="font-size: 20px; text-align: center; font-weight: bold">
         ----- > Автор - {{item.user.name}} <-----
     </div>
-
     <div style="text-align: center; font-size: 26px; font-weight: bold; color: white;">
         {{item.content}}
     </div>
+
+    {% if item.is_question %}
+    <div>
+        <a href="/questions_answer/{{ item.id }}" class="btn btn-danger">
+            Ответить
+        </a>
+    </div>
+    {% endif %}
+
+    {% if item.answers %}
+    <hr style="height: 3px; width: 99%; border: 2px solid grey; background: white;">
+    <h3>Ответы:</h3>
+    {% for answer in item.answers %}
+    <div style="font-weight: bold;">
+        Ответ: {{ answer.content }}
+        <br>
+        Автор ответа: {{ answer.user.name }}
+        <br>
+        Дата написания ответа: {{ answer.created_date }}
+        {% if current_user.is_authenticated and current_user == answer.user %}
+        <form action="/delete_answer/{{ answer.id }}" method="post" onsubmit="return confirm('Вы уверены, что хотите удалить этот ответ?');">
+            <button type="submit" class="btn btn-danger">Удалить</button>
+        </form>
+        {% endif %}
+    </div>
+
+    {% endfor %}
+    {% endif %}
+<hr style="height: 3px; width: 99%; border: 2px solid grey; background: white;">
     {% if current_user.is_authenticated and current_user == item.user %}
     <div>
         <a href="/news/{{ item.id }}" class="btn btn-danger">
@@ -28,7 +55,11 @@
         </a>
     </div>
     {% endif %}
+
 </div>
+<br>
 
 {% endfor %}
 {% endblock %}
+
+

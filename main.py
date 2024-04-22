@@ -1,12 +1,13 @@
 from data import db_session
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
-from flask import Flask, render_template, redirect, request, abort, url_for
+from flask import Flask, render_template, redirect, request, abort, url_for, flash
 import os
 
+from forms.answer import AnswerForm
 from forms.news import NewsForm
 from forms.user import RegisterForm, LoginForm
 from data.users import User
-from data.news import News
+from data.news import News, Answer
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -285,7 +286,50 @@ def sample_file_upload():
         </html>'''
 
 
+@app.route('/questions_answer/<int:id>', methods=['GET', 'POST'])
+@login_required
+def answer_question(id):
+    form = AnswerForm()
+    if form.validate_on_submit():
+        # Получаем текущую сессию SQLAlchemy
+        db_sess = db_session.create_session()
+        # Получаем текущего пользователя в текущей сессии
+        user = db_sess.query(User).filter(User.id == current_user.id).first()
+        question = db_sess.query(News).get(id)
+        if question and user:
+            # Создаем новый объект Answer
+            answer = Answer(
+                content=form.content.data,
+                user=user,
+                question=question
+            )
+            # Добавляем его в сессию и сохраняем в базе данных
+            db_sess.add(answer)
+            db_sess.commit()
+            flash('Ваш ответ успешно добавлен', 'success')
+            # Перенаправляем пользователя на ту же страницу
+            return redirect(url_for('questions'))
+        else:
+            abort(404)
+    return render_template('answer.html', title='Ответить на вопрос', form=form)
 
+
+@app.route('/delete_answer/<int:answer_id>', methods=['POST'])
+@login_required
+def delete_answer(answer_id):
+    db_sess = db_session.create_session()
+    answer = db_sess.query(Answer).get(answer_id)
+    if answer:
+        # Проверяем, что текущий пользователь является автором ответа
+        if current_user == answer.user:
+            db_sess.delete(answer)
+            db_sess.commit()
+            flash('Ответ успешно удален', 'success')
+        else:
+            flash('У вас нет разрешения на удаление этого ответа', 'error')
+    else:
+        flash('Ответ не найден', 'error')
+    return redirect(url_for('questions'))
 
 
 

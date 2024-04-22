@@ -19,3 +19,25 @@ class News(SqlAlchemyBase):
     user_id = sqlalchemy.Column(sqlalchemy.Integer,
                                 sqlalchemy.ForeignKey("users.id"))
     user = orm.relationship('User')
+
+    # Связь с ответами на вопросы
+    answers = orm.relationship('Answer', back_populates='question', lazy='dynamic')
+
+
+class Answer(SqlAlchemyBase):
+    __tablename__ = 'answers'
+
+    id = sqlalchemy.Column(sqlalchemy.Integer,
+                           primary_key=True, autoincrement=True)
+    content = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    created_date = sqlalchemy.Column(sqlalchemy.DateTime,
+                                     default=datetime.datetime.now)
+    user_id = sqlalchemy.Column(sqlalchemy.Integer,
+                                sqlalchemy.ForeignKey("users.id"))
+    user = orm.relationship('User')
+
+    question_id = sqlalchemy.Column(sqlalchemy.Integer,
+                                    sqlalchemy.ForeignKey("news.id"))
+
+    # Связь с вопросом, на который дан ответ
+    question = orm.relationship('News', back_populates='answers')
