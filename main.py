@@ -23,8 +23,7 @@ def main():
 
 @app.route("/photos.html")
 def photo():
-
-    folder_path = r'C:\Users\dselc\PycharmProjects\flask_project2\static\img\image'
+    folder_path = r'static\img\image'
     file_names = []
     for file_name in os.listdir(folder_path):
         if os.path.isfile(os.path.join(folder_path, file_name)):
@@ -270,7 +269,6 @@ def sample_file_upload():
 
         <body>
             <h1 style="text-align: center;">Загрузка фотографии</h1>
-            <h2 style="text-align: center;">для участия в миссии</h2>
             <form method="post" enctype="multipart/form-data">
                 <div class="form-group"
                     style="background-color: yellow; border: 3px solid yellowgreen;width: fit-content; height: fit-content; margin-left: auto; margin-right: auto;">
